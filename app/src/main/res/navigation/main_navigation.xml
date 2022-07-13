@@ -8,16 +8,16 @@
   <fragment
       android:id="@+id/recipeFragment"
       android:name="com.example.foodx.RecipeFragment"
-      android:label="fragment_recipe"
+      android:label="Recipe"
       tools:layout="@layout/fragment_recipe" />
   <fragment
       android:id="@+id/favoriteFragment"
       android:name="com.example.foodx.FavoriteFragment"
-      android:label="fragment_favorite"
+      android:label="Favorite"
       tools:layout="@layout/fragment_favorite" />
   <fragment
       android:id="@+id/jokeFragment"
       android:name="com.example.foodx.JokeFragment"
-      android:label="fragment_joke"
+      android:label="Joke"
       tools:layout="@layout/fragment_joke" />
 </navigation>
