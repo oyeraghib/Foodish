@@ -7,6 +7,18 @@
     tools:context=".RecipeFragment"
     >
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:src="@drawable/ic_restaurant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/fabAddRecipe"
+        app:layout_constraintEnd_toEndOf="@+id/shimmer_recycler_view"
+        app:layout_constraintBottom_toBottomOf="@+id/shimmer_recycler_view"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        />
     <com.todkars.shimmer.ShimmerRecyclerView
         android:id="@+id/shimmer_recycler_view"
         android:layout_width="match_parent"
