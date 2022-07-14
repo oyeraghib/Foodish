@@ -18,6 +18,7 @@ class RecipeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentRecipeBinding.inflate(layoutInflater)
+        binding.rvRecipe.showShimmer()
         return binding.root
     }
 
