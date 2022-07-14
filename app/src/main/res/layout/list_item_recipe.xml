@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:layout_width="match_parent"
+    tools:layout_height="200dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="16dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="8dp"
+    app:cardBackgroundColor="#12E3E3E3"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="horizontal"
+      >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher_background"
+        tools:layout_width="200dp"
+        tools:layout_height="match_parent"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        >
+
+      <TextView
+          android:id="@+id/tvTitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="MyRecipe"
+          android:textSize="24sp"
+          android:fontFamily="sans-serif"
+          />
+
+      <TextView
+          android:layout_marginTop="4dp"
+          android:id="@+id/tvDescription"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="This is my recipe"
+          android:textSize="16sp"
+          />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginTop="24dp"
+          >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="4dp"
+            >
+
+          <ImageView
+              android:layout_marginTop="20dp"
+              android:id="@+id/ivIconHeart"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_heart"
+              />
+
+          <TextView
+              android:id="@+id/tvIconHeart"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="100"
+              />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="4dp"
+
+            >
+
+          <ImageView
+              android:layout_marginTop="20dp"
+              android:id="@+id/ivIconFav"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_time"
+              />
+
+          <TextView
+              android:id="@+id/tvIconFav"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="100"
+              />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="4dp"
+
+            >
+          <ImageView
+              android:layout_marginTop="20dp"
+              android:id="@+id/ivIconVegan"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:src="@drawable/ic_vegan"
+              />
+
+          <TextView
+              android:id="@+id/tvIconVegan"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="100"
+              />
+        </LinearLayout>
+
+      </LinearLayout>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</androidx.cardview.widget.CardView>
