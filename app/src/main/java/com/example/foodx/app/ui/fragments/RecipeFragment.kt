@@ -1,4 +1,4 @@
-package com.example.foodx
+package com.example.foodx.app.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

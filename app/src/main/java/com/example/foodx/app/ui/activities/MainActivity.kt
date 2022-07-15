@@ -1,4 +1,4 @@
-package com.example.foodx
+package com.example.foodx.app.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.foodx.R
 import com.example.foodx.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
