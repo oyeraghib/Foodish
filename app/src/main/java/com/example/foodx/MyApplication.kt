@@ -1,9 +1,11 @@
 package com.example.foodx
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class MyApplication: Application() {
+@HiltAndroidApp
+class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
