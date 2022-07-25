@@ -1,6 +1,6 @@
 package com.example.foodx.api.di
 
-import com.example.foodx.api.Constants
+import com.example.foodx.api.utils.Constants
 import com.example.foodx.api.service.FoodRecipeAPI
 import dagger.Module
 import dagger.Provides

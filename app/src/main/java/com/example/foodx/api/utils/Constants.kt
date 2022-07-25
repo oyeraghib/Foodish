@@ -1,4 +1,4 @@
-package com.example.foodx.api
+package com.example.foodx.api.utils
 
 class Constants {
 
