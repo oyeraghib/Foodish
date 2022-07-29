@@ -49,7 +49,8 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MyRecipe"
+            android:text="@{result.title}"
+            tools:text="Title"
             android:textSize="24sp"
             android:fontFamily="sans-serif"
             />
@@ -59,7 +60,8 @@
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is my recipe"
+            android:text="@{result.summary}"
+            tools:text="Description"
             android:textSize="16sp"
             />
 
@@ -89,7 +91,8 @@
                 android:id="@+id/tvIconHeart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100"
+                android:text="@{result.aggregateLikes.toString()}"
+                tools:text="100"
                 />
           </LinearLayout>
 
@@ -114,7 +117,8 @@
                 android:id="@+id/tvIconFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100"
+                android:text="@{result.readyInMinutes.toString()}"
+                tools:text="100"
                 />
 
           </LinearLayout>
@@ -132,6 +136,7 @@
                 android:id="@+id/ivIconVegan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                applyVegetarianColor="@{result.vegan}"
                 android:src="@drawable/ic_vegan"
                 />
 
@@ -140,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="100"
+                applyVegetarianColor="@{result.vegan}"
                 />
           </LinearLayout>
 
