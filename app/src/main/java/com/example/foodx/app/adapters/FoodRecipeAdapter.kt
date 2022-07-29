@@ -3,9 +3,11 @@ package com.example.foodx.app.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodx.api.models.data.Result
 import com.example.foodx.api.models.responses.FoodRecipeResponse
+import com.example.foodx.app.utils.FoodRecipeDiffUtil
 import com.example.foodx.databinding.ListItemRecipeBinding
 
 class FoodRecipeAdapter : RecyclerView.Adapter<FoodRecipeAdapter.MyViewHolder>() {
@@ -43,7 +45,12 @@ class FoodRecipeAdapter : RecyclerView.Adapter<FoodRecipeAdapter.MyViewHolder>()
     }
 
     fun setData(newData: FoodRecipeResponse) {
-        recipe = newData.results!!
-        notifyDataSetChanged()
+        val recipesDiffUtil = FoodRecipeDiffUtil(recipe, newData.results!!)
+        val diffUtilResult = DiffUtil.calculateDiff(recipesDiffUtil)
+
+        //Setting only new data in the list
+        recipe = newData.results
+
+        diffUtilResult.dispatchUpdatesTo(this)
     }
 }
