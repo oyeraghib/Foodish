@@ -17,7 +17,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class FoodRecipeViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val repository: FoodRecipeRepository,
     application: Application
 ) : AndroidViewModel(application) {

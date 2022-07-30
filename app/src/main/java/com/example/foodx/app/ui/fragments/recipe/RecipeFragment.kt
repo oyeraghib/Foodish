@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodx.api.utils.Constants.Companion.API_KEY
 import com.example.foodx.api.utils.NetworkResults
 import com.example.foodx.app.adapters.FoodRecipeAdapter
-import com.example.foodx.app.viewmodels.FoodRecipeViewModel
+import com.example.foodx.app.viewmodels.MainViewModel
+import com.example.foodx.app.viewmodels.RecipesViewModel
 import com.example.foodx.databinding.FragmentRecipeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.collections.set
@@ -23,8 +24,11 @@ class RecipeFragment : Fragment() {
     private var _binding: FragmentRecipeBinding? = null
     private val binding: FragmentRecipeBinding get() = _binding!!
 
-    // Viewmodel instance
-    private lateinit var viewModel: FoodRecipeViewModel
+    // ViewModel instance
+    private lateinit var viewModel: MainViewModel
+
+    //Recipes ViewModel
+    private lateinit var recipesViewModel: RecipesViewModel
 
     // Adapter instance
     private val adapter by lazy { FoodRecipeAdapter() }
@@ -37,7 +41,10 @@ class RecipeFragment : Fragment() {
         _binding = FragmentRecipeBinding.inflate(layoutInflater)
 
         //Initialising ViewModel
-        viewModel = ViewModelProvider(requireActivity())[FoodRecipeViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+
+        //Initialising Recipes ViewModel
+        recipesViewModel = ViewModelProvider(this)[RecipesViewModel::class.java]
 
         //Starts the recycler View
         setUpRecyclerView()
@@ -49,7 +56,7 @@ class RecipeFragment : Fragment() {
 
 
     private fun requestApiData() {
-        viewModel.getRecipes(applyQueries())
+        viewModel.getRecipes(recipesViewModel.applyQueries())
 
         viewModel.recipeResponse.observe(viewLifecycleOwner, Observer { results ->
             when (results) {
@@ -78,19 +85,6 @@ class RecipeFragment : Fragment() {
         binding.rvRecipe.showShimmer()
 
         binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun applyQueries(): HashMap<String, String> {
-
-        val queries: HashMap<String, String> = HashMap()
-        queries["number"] = "50"
-        queries["apiKey"] = API_KEY
-        queries["type"] = "snack"
-        queries["diet"] = "vegan"
-        queries["addRecipeInformation"] = "true"
-        queries["fillIngredients"] = "true"
-
-        return queries
     }
 
     private fun setAdapter() {
