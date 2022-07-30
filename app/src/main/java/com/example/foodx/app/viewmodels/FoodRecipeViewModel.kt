@@ -22,7 +22,7 @@ class FoodRecipeViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    val recipeResponse: MutableLiveData<NetworkResults<FoodRecipeResponse>> = MutableLiveData()
+    var recipeResponse: MutableLiveData<NetworkResults<FoodRecipeResponse>> = MutableLiveData()
 
     fun getRecipes(queries: Map<String, String>) = viewModelScope.launch {
         getRecipesSafeCallQueries(queries)
@@ -33,7 +33,7 @@ class FoodRecipeViewModel @Inject constructor(
         // When data is loading but not yet fetched.
         recipeResponse.value = NetworkResults.Loading()
 
-        // Checks for Internet and performs API fetching
+         //Checks for Internet and performs API fetching
         if (hasInternet()) {
             try {
                 val response = repository.remote.getRecipes(queries)
@@ -48,7 +48,7 @@ class FoodRecipeViewModel @Inject constructor(
                 NetworkResults.Error(message = "No Internet Connection", data = null)
     }
 
-    // Handles the different scenarios of the data comes from API
+    // Handles the different scenarios of the data coming from API
     private fun handleFoodRecipesResponse(response: Response<FoodRecipeResponse>): NetworkResults<FoodRecipeResponse> {
         when {
             response.message().toString().contains("timeout") -> {
@@ -83,11 +83,11 @@ class FoodRecipeViewModel @Inject constructor(
         val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
 
         return when {
-            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_SUPL) -> true
-            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_FOTA) -> true
-            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_MMS) -> true
+            capabilities.hasCapability(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            capabilities.hasCapability(NetworkCapabilities.TRANSPORT_WIFI) -> true
+            capabilities.hasCapability(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
 
-            else -> false
+            else -> true
         }
     }
 }
