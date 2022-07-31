@@ -97,6 +97,8 @@ class RecipeFragment : Fragment() {
 
     fun hideShimmer() {
         binding.rvRecipe.hideShimmer()
+        binding.ivNoInternet.visibility = View.VISIBLE
+        binding.tvNoInternet.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
