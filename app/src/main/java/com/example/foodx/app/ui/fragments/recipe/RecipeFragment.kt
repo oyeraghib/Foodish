@@ -80,7 +80,7 @@ class RecipeFragment : Fragment() {
         })
     }
 
-    fun setUpRecyclerView() {
+    private fun setUpRecyclerView() {
         setAdapter()
         binding.rvRecipe.showShimmer()
 
@@ -91,11 +91,11 @@ class RecipeFragment : Fragment() {
         binding.rvRecipe.adapter = adapter
     }
 
-    fun showShimmer() {
+    private fun showShimmer() {
         binding.rvRecipe.showShimmer()
     }
 
-    fun hideShimmer() {
+    private fun hideShimmer() {
         binding.rvRecipe.hideShimmer()
         binding.ivNoInternet.visibility = View.VISIBLE
         binding.tvNoInternet.visibility = View.VISIBLE
