@@ -74,6 +74,7 @@ class MainViewModel @Inject constructor(
     }
 
     // Checks for Internet Connection availability from different sources like WIFI, Cellular and ethernet
+    //TODO: This functionality is not working correctly at the moment [every time it is made to return true]
     private fun hasInternet(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE
@@ -83,9 +84,9 @@ class MainViewModel @Inject constructor(
         val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
 
         return when {
-            capabilities.hasCapability(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            capabilities.hasCapability(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasCapability(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_FOTA) -> true
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_SUPL) -> true
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_MMS) -> true
 
             else -> true
         }
