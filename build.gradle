@@ -3,6 +3,7 @@ buildscript {
     ext {
         navVersion = "2.5.0"
         roomVersion = "2.4.3"
+        lifecycleVersion = "2.5.1"
 
     }
     dependencies {
