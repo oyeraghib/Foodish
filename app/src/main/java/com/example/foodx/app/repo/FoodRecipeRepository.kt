@@ -1,5 +1,6 @@
 package com.example.foodx.app.repo
 
+import com.example.foodx.app.data.LocalDataSource
 import com.example.foodx.app.data.RemoteDataSource
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import javax.inject.Inject
@@ -8,6 +9,9 @@ import javax.inject.Inject
 does not get lost during configuration changes.
 */
 @ActivityRetainedScoped
-class FoodRecipeRepository @Inject constructor(private val remoteDataSource: RemoteDataSource) {
+class FoodRecipeRepository @Inject constructor(private val remoteDataSource: RemoteDataSource,
+private val localDataSource: LocalDataSource) {
     val remote = remoteDataSource
+    val local = localDataSource
+
 }

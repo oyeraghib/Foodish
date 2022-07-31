@@ -48,8 +48,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     //Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
 
     //Shimmer Recycler View
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
@@ -64,6 +64,9 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.13.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
@@ -77,6 +80,12 @@ dependencies {
     //Coil (Image Loading)
     implementation "io.coil-kt:coil-compose:2.1.0"
 
+    //Room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    annotationProcessor "androidx.room:room-compiler:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    //room with coroutines
+    implementation "androidx.room:room-ktx:$roomVersion"
 
 }
 
