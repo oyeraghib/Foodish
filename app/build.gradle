@@ -64,6 +64,9 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.13.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
     //Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
 
