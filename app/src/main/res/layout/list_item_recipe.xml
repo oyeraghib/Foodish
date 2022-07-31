@@ -4,166 +4,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
   <data>
-    <variable
-        name="result"
-        type="com.example.foodx.api.models.data.Result"
-        />
+        <variable
+            name="result"
+            type="com.example.foodx.api.models.data.Result"
+            />
   </data>
-  <androidx.cardview.widget.CardView
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
+      android:id="@+id/recipesRowLayout"
       android:layout_height="wrap_content"
-      tools:layout_height="200dp"
-      android:elevation="10dp"
-      app:cardCornerRadius="16dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginEnd="8dp"
-      android:layout_marginTop="8dp"
-      app:cardBackgroundColor="#12E3E3E3"
+      android:layout_marginTop="4dp"
+      android:layout_marginBottom="4dp"
       >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/rowCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/light_gray"
+        app:cardCornerRadius="10dp"
         >
 
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          tools:layout_width="wrap_content"
-          android:scaleType="centerCrop"
-          setImage="@{result.image}"
-          tools:src="@drawable/ic_launcher_background"
-          tools:layout_height="match_parent"
-          />
-
-
-
-      <LinearLayout
+      <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:orientation="vertical"
-          android:layout_marginStart="16dp"
-          android:layout_marginTop="8dp"
-          android:layout_marginBottom="4dp"
+          android:background="@color/white"
           >
 
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            tools:srcCompat="@tools:sample/avatars"
+            android:id="@+id/ivRecipeImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleType="centerCrop"
+            setImage="@{result.image}"
+            />
         <TextView
+            tools:text="Recipe Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/ivRecipeImage"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            android:maxLines="2"
             android:text="@{result.title}"
-            tools:text="Title"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
+            android:textSize="20sp"
+            android:fontFamily="@font/balsamiq_sans"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             />
 
         <TextView
-            android:layout_marginTop="4dp"
+            tools:text="Recipe Description In Detail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/tvDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textColor="@color/black"
+            android:text="@{result.summary}"
+
+            />
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLength="300"
-            android:text="@{result.summary}"
-            tools:text="Description"
-            android:textSize="16sp"
+            app:srcCompat="@drawable/ic_heart"
+            android:id="@+id/ivHeartIcon"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="36dp"
+            app:layout_constraintStart_toStartOf="@+id/tvHeartIcon"
+            app:layout_constraintEnd_toEndOf="@+id/tvHeartIcon"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="1.0"
+            />
+        <TextView
+            tools:text="100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvHeartIcon"
+            app:layout_constraintStart_toStartOf="@+id/tvDescription"
+            app:layout_constraintTop_toBottomOf="@+id/ivHeartIcon"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            setFavourite="@{result.aggregateLikes}"
             />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="36dp"
-            >
+            app:srcCompat="@drawable/ic_time"
+            android:id="@+id/icClockIcon"
+            app:layout_constraintStart_toStartOf="@+id/tvClockIcon"
+            app:layout_constraintEnd_toEndOf="@+id/tvClockIcon"
+            app:layout_constraintHorizontal_bias="0.441"
+            app:layout_constraintTop_toTopOf="@+id/ivHeartIcon"
+            />
 
-          <LinearLayout
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_margin="4dp"
-              >
+        <TextView
+            android:text="100"
+            android:textColor="@color/yellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvClockIcon"
+            app:layout_constraintStart_toEndOf="@+id/tvHeartIcon"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/icClockIcon"
+            android:textAlignment="center"
+            setTime="@{result.readyInMinutes}"
+            />
 
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:id="@+id/ivIconHeart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_heart"
-                />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_vegan"
+            android:id="@+id/ivVeganIcon"
+            app:layout_constraintStart_toStartOf="@+id/tvVeganIcon"
+            app:layout_constraintEnd_toEndOf="@+id/tvVeganIcon"
+            app:layout_constraintHorizontal_bias="0.409"
+            app:layout_constraintTop_toTopOf="@+id/icClockIcon"
+            applyVegetarianColor="@{result.vegan}"
+            />
 
-            <TextView
-                android:id="@+id/tvIconHeart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                setFavourite="@{result.aggregateLikes}"
-                tools:text="100"
-                />
-          </LinearLayout>
-
-          <!--                android:text="@{result.aggregateLikes.toString()}"-->
-
-
-
-          <LinearLayout
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_margin="4dp"
-
-              >
-
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:id="@+id/ivIconFav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_time"
-                />
-
-            <TextView
-                android:id="@+id/tvIconFav"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                setTime="@{result.readyInMinutes}"
-                tools:text="100"
-                />
-
-<!--            android:text="@{result.readyInMinutes.toString()}"-->
+        <TextView
+            tools:text="100"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvVeganIcon"
+            app:layout_constraintStart_toEndOf="@+id/tvClockIcon"
+            app:layout_constraintTop_toBottomOf="@+id/ivVeganIcon"
+            android:layout_marginStart="24dp"
+            android:textAlignment="center"
+            applyVegetarianColor="@{result.vegan}"
+            />
 
 
-          </LinearLayout>
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 
-          <LinearLayout
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:layout_margin="4dp"
-
-              >
-            <ImageView
-                android:layout_marginTop="20dp"
-                android:id="@+id/ivIconVegan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                applyVegetarianColor="@{result.vegan}"
-                android:src="@drawable/ic_vegan"
-                />
-
-            <TextView
-                android:id="@+id/tvIconVegan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="100"
-                applyVegetarianColor="@{result.vegan}"
-                />
-          </LinearLayout>
-
-        </LinearLayout>
-
-      </LinearLayout>
-
-    </LinearLayout>
-
-  </androidx.cardview.widget.CardView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
