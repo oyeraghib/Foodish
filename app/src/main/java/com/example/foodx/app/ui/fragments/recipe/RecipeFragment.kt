@@ -70,7 +70,7 @@ class RecipeFragment : Fragment() {
                 if (it.isNotEmpty()) {
                     Timber.d("Read Database called")
                     adapter.setData(it[0].foodRecipe)
-                    hideShimmerWhenDataReceived()
+                    hideShimmer()
                 } else {
                     //If database is empty requests new data from database   and store it locally.
                     requestApiData()
@@ -97,7 +97,7 @@ class RecipeFragment : Fragment() {
         viewModel.recipeResponse.observe(viewLifecycleOwner, Observer { results ->
             when (results) {
                 is NetworkResults.Success -> {
-                    hideShimmerWhenDataReceived()
+                    hideShimmer()
                     results.data.let {
                         adapter.setData(it!!)
                     }
@@ -105,7 +105,7 @@ class RecipeFragment : Fragment() {
 
                 is NetworkResults.Error -> {
                     readFromCache()
-                    hideShimmerWhenNoInternet()
+                    hideShimmer()
                     Toast.makeText(requireContext(), results.message.toString(), Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -125,16 +125,8 @@ class RecipeFragment : Fragment() {
         binding.rvRecipe.showShimmer()
     }
 
-    private fun hideShimmerWhenDataReceived() {
+    private fun hideShimmer() {
         binding.rvRecipe.hideShimmer()
-        binding.ivNoInternet.visibility = View.INVISIBLE
-        binding.tvNoInternet.visibility = View.INVISIBLE
-    }
-
-    private fun hideShimmerWhenNoInternet() {
-        binding.rvRecipe.hideShimmer()
-        binding.ivNoInternet.visibility = View.VISIBLE
-        binding.tvNoInternet.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
