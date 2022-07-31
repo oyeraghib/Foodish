@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodx.api.utils.NetworkResults
 import com.example.foodx.app.adapters.FoodRecipeAdapter
+import com.example.foodx.app.utils.observeOnce
 import com.example.foodx.app.viewmodels.MainViewModel
 import com.example.foodx.app.viewmodels.RecipesViewModel
 import com.example.foodx.databinding.FragmentRecipeBinding
@@ -65,7 +66,7 @@ class RecipeFragment : Fragment() {
 
     private fun loadFoodRecipes() {
         lifecycleScope.launch {
-            viewModel.readRecipes.observe(viewLifecycleOwner, Observer {
+            viewModel.readRecipes.observeOnce(viewLifecycleOwner, Observer {
                 if (it.isNotEmpty()) {
                     Timber.d("Read Database called")
                     adapter.setData(it[0].foodRecipe)
