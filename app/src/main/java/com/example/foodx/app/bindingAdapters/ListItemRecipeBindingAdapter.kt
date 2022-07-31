@@ -17,6 +17,7 @@ class ListItemRecipeBindingAdapter {
         fun loadImageFromUrl(imageView: ImageView, image: String) {
             imageView.load(image) {
                 crossfade(600)
+                error(R.drawable.ic_error_placeholder)
             }
         }
 
