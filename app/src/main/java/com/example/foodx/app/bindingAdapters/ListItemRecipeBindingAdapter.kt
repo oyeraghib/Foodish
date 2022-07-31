@@ -12,19 +12,6 @@ class ListItemRecipeBindingAdapter {
 
     companion object {
 
-        @BindingAdapter("setFavourite")
-        @JvmStatic
-        fun setFavourites(textView: TextView, likes: Int) {
-            textView.text = likes.toString()
-        }
-
-        @BindingAdapter("setTime")
-        @JvmStatic
-        fun setTime(textView: TextView, time: Int) {
-            textView.text = time.toString()
-        }
-
-
         @BindingAdapter("setImage")
         @JvmStatic
         fun loadImageFromUrl(imageView: ImageView, image: String) {
