@@ -8,15 +8,17 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.foodx.api.utils.Constants.Companion.API_KEY
 import com.example.foodx.api.utils.NetworkResults
 import com.example.foodx.app.adapters.FoodRecipeAdapter
+import com.example.foodx.app.utils.observeOnce
 import com.example.foodx.app.viewmodels.MainViewModel
 import com.example.foodx.app.viewmodels.RecipesViewModel
 import com.example.foodx.databinding.FragmentRecipeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.collections.set
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class RecipeFragment : Fragment() {
@@ -49,13 +51,47 @@ class RecipeFragment : Fragment() {
         //Starts the recycler View
         setUpRecyclerView()
 
-        //Sets Data In Recycler View
-        requestApiData()
+        //Read Recipes from Database
+        loadFoodRecipes()
+
         return binding.root
+    }
+
+    private fun setUpRecyclerView() {
+        setAdapter()
+        binding.rvRecipe.showShimmer()
+        binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+
+    private fun loadFoodRecipes() {
+        lifecycleScope.launch {
+            viewModel.readRecipes.observeOnce(viewLifecycleOwner, Observer {
+                if (it.isNotEmpty()) {
+                    Timber.d("Read Database called")
+                    adapter.setData(it[0].foodRecipe)
+                    hideShimmer()
+                } else {
+                    //If database is empty requests new data from database   and store it locally.
+                    requestApiData()
+                }
+            })
+        }
+    }
+
+    private fun readFromCache() {
+        lifecycleScope.launch {
+            viewModel.readRecipes.observe(viewLifecycleOwner, Observer {
+                if (it.isNotEmpty()) {
+                    adapter.setData(it[0].foodRecipe)
+                }
+            })
+        }
     }
 
 
     private fun requestApiData() {
+        Timber.d("Request New Data From API")
         viewModel.getRecipes(recipesViewModel.applyQueries())
 
         viewModel.recipeResponse.observe(viewLifecycleOwner, Observer { results ->
@@ -68,7 +104,8 @@ class RecipeFragment : Fragment() {
                 }
 
                 is NetworkResults.Error -> {
-                    hideShimmerNoInternet()
+                    readFromCache()
+                    hideShimmer()
                     Toast.makeText(requireContext(), results.message.toString(), Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -78,13 +115,6 @@ class RecipeFragment : Fragment() {
                 }
             }
         })
-    }
-
-    private fun setUpRecyclerView() {
-        setAdapter()
-        binding.rvRecipe.showShimmer()
-
-        binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun setAdapter() {
@@ -97,14 +127,6 @@ class RecipeFragment : Fragment() {
 
     private fun hideShimmer() {
         binding.rvRecipe.hideShimmer()
-        binding.ivNoInternet.visibility = View.INVISIBLE
-        binding.tvNoInternet.visibility = View.INVISIBLE
-    }
-
-    private fun hideShimmerNoInternet() {
-        binding.rvRecipe.hideShimmer()
-        binding.ivNoInternet.visibility = View.VISIBLE
-        binding.tvNoInternet.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {

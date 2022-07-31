@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FoodX/app/src/main/res/drawable/ic_error_placeholder.xml" value="0.1945" />
         <entry key="..\:/FoodX/app/src/main/res/drawable/ic_heart.xml" value="0.221" />
         <entry key="..\:/FoodX/app/src/main/res/drawable/ic_time.xml" value="0.221" />
         <entry key="..\:/FoodX/app/src/main/res/drawable/ic_vegan.xml" value="0.221" />
