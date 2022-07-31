@@ -68,7 +68,7 @@ class RecipeFragment : Fragment() {
                 }
 
                 is NetworkResults.Error -> {
-                    hideShimmer()
+                    hideShimmerNoInternet()
                     Toast.makeText(requireContext(), results.message.toString(), Toast.LENGTH_SHORT)
                         .show()
                 }
@@ -96,6 +96,12 @@ class RecipeFragment : Fragment() {
     }
 
     private fun hideShimmer() {
+        binding.rvRecipe.hideShimmer()
+        binding.ivNoInternet.visibility = View.INVISIBLE
+        binding.tvNoInternet.visibility = View.INVISIBLE
+    }
+
+    private fun hideShimmerNoInternet() {
         binding.rvRecipe.hideShimmer()
         binding.ivNoInternet.visibility = View.VISIBLE
         binding.tvNoInternet.visibility = View.VISIBLE
