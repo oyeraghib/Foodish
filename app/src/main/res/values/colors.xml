@@ -11,4 +11,14 @@
   <color name="dark_gray">#272727</color>
   <color name="yellow">#D89611</color>
   <color name="white">#FFFFFFFF</color>
+
+  // App Theme
+  <color name="top_bar">#FFB430</color>
+  <color name="action_bar">#C57D00</color>
+
+  // Custom Chip Style
+  <color name="checked_chip_background_color">#DFFFD604</color>
+  <color name="chip_background_color">@color/black</color>
+  <color name="checked_chip_text_color">@color/black</color>
+  <color name="chip_text_colors">#FFFFFF</color>
 </resources>

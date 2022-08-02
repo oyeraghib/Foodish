@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodx.R
 import com.example.foodx.api.utils.NetworkResults
 import com.example.foodx.app.adapters.FoodRecipeAdapter
 import com.example.foodx.app.utils.observeOnce
@@ -55,6 +57,15 @@ class RecipeFragment : Fragment() {
         loadFoodRecipes()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.fabAddRecipe.setOnClickListener {
+            Navigation.findNavController(requireView())
+                .navigate(R.id.actionRecipeFragmentToRecipeBottomSheet)
+        }
     }
 
     private fun setUpRecyclerView() {
