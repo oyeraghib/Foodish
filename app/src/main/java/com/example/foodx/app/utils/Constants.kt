@@ -19,5 +19,13 @@ class Constants {
         const val DEFAULT_MEAL_TYPE = "main course"
         const val DEFAULT_DIET_TYPE = "gluten free"
         const val DEFAULT_RECIPE_QUERY_NUMBER = "50"
+
+        //Preferences DataStore
+        const val PREFERENCES_MEAL_TYPE = "mealType"
+        const val PREFERENCES_MEAL_TYPE_ID = "mealTypeId"
+        const val PREFERENCES_DIET_TYPE = "dietType"
+        const val PREFERENCES_DIET_TYPE_ID = "dietTypeID"
+
+        const val PREFERENCES_NAME = "foodishPreferences"
     }
 }
