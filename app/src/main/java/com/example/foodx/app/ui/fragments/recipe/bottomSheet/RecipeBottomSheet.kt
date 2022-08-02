@@ -4,16 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.foodx.R
+import com.example.foodx.databinding.FragmentRecipeBottomSheetBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class RecipeBottomSheet : Fragment() {
+class RecipeBottomSheet : BottomSheetDialogFragment() {
+
+    private var _binding: FragmentRecipeBottomSheetBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_bottom_sheet, container, false)
+        _binding = FragmentRecipeBottomSheetBinding.inflate(layoutInflater)
+        return binding.root
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
