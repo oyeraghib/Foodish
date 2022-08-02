@@ -15,5 +15,9 @@ class Constants {
         const val DATABASE_NAME = "recipe_database"
         const val TABLE_NAME = "recipe_table"
 
+        //Bottom Sheet and Preferences
+        const val DEFAULT_MEAL_TYPE = "main course"
+        const val DEFAULT_DIET_TYPE = "gluten free"
+        const val DEFAULT_RECIPE_QUERY_NUMBER = "50"
     }
 }
