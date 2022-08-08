@@ -39,7 +39,10 @@
         android:orientation="horizontal"
         >
 
-      <include layout="@layout/item_meal_type_chips" />
+      <include
+          android:id="@+id/layoutMealType"
+          layout="@layout/item_meal_type_chips"
+          />
 
     </LinearLayout>
 
@@ -78,7 +81,9 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         >
-      <include layout="@layout/item_diet_type_chips" />
+      <include
+          android:id="@+id/layoutDietType"
+          layout="@layout/item_diet_type_chips" />
 
     </LinearLayout>
 
