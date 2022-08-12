@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import com.example.foodx.app.utils.Constants.Companion.DEFAULT_DIET_TYPE
 import com.example.foodx.app.utils.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.example.foodx.app.viewmodels.RecipesViewModel
@@ -80,6 +81,11 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
                 dietTypeChip,
                 dietTypeChipId
             )
+
+            val action =  RecipeBottomSheetDirections.actionRecipeBottomSheetToRecipeFragment()
+            action.backFromBottomSheet = true
+            Timber.d("${action.backFromBottomSheet}")
+            findNavController().navigate(action)
         }
         return binding.root
     }
