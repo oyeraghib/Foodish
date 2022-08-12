@@ -9,7 +9,15 @@
       android:id="@+id/recipeFragment"
       android:name="com.example.foodx.app.ui.fragments.recipe.RecipeFragment"
       android:label="Recipe"
-      tools:layout="@layout/fragment_recipe" />
+      tools:layout="@layout/fragment_recipe" >
+    <action
+        android:id="@+id/actionRecipeFragmentToRecipeBottomSheet"
+        app:destination="@id/recipeBottomSheet" />
+    <argument
+        android:name="backFromBottomSheet"
+        app:argType="boolean"
+        android:defaultValue="false" />
+  </fragment>
   <fragment
       android:id="@+id/favoriteFragment"
       android:name="com.example.foodx.app.ui.fragments.favorite.FavoriteFragment"
@@ -20,4 +28,13 @@
       android:name="com.example.foodx.app.ui.fragments.joke.JokeFragment"
       android:label="Joke"
       tools:layout="@layout/fragment_joke" />
+  <dialog
+      android:id="@+id/recipeBottomSheet"
+      android:name="com.example.foodx.app.ui.fragments.recipe.bottomSheet.RecipeBottomSheet"
+      android:label="fragment_recipe_bottom_sheet"
+      tools:layout="@layout/fragment_recipe_bottom_sheet" >
+    <action
+        android:id="@+id/action_recipeBottomSheet_to_recipeFragment"
+        app:destination="@id/recipeFragment" />
+  </dialog>
 </navigation>

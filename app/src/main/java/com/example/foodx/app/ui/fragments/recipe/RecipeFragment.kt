@@ -9,7 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.foodx.R
 import com.example.foodx.api.utils.NetworkResults
 import com.example.foodx.app.adapters.FoodRecipeAdapter
 import com.example.foodx.app.utils.observeOnce
@@ -25,6 +28,9 @@ class RecipeFragment : Fragment() {
 
     private var _binding: FragmentRecipeBinding? = null
     private val binding: FragmentRecipeBinding get() = _binding!!
+
+    //Arguments from Recipes Bottom Sheet
+    private val args by navArgs<RecipeFragmentArgs>()
 
     // ViewModel instance
     private lateinit var viewModel: MainViewModel
@@ -57,6 +63,15 @@ class RecipeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.fabAddRecipe.setOnClickListener {
+            Navigation.findNavController(requireView())
+                .navigate(R.id.actionRecipeFragmentToRecipeBottomSheet)
+        }
+    }
+
     private fun setUpRecyclerView() {
         setAdapter()
         binding.rvRecipe.showShimmer()
@@ -67,7 +82,7 @@ class RecipeFragment : Fragment() {
     private fun loadFoodRecipes() {
         lifecycleScope.launch {
             viewModel.readRecipes.observeOnce(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
+                if (it.isNotEmpty() && !args.backFromBottomSheet) {
                     Timber.d("Read Database called")
                     adapter.setData(it[0].foodRecipe)
                     hideShimmer()
@@ -93,6 +108,7 @@ class RecipeFragment : Fragment() {
     private fun requestApiData() {
         Timber.d("Request New Data From API")
         viewModel.getRecipes(recipesViewModel.applyQueries())
+        Timber.d("${recipesViewModel.applyQueries()}")
 
         viewModel.recipeResponse.observe(viewLifecycleOwner, Observer { results ->
             when (results) {

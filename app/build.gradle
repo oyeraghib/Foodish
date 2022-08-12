@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
 }
 
 android {
@@ -89,6 +90,14 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     //room with coroutines
     implementation "androidx.room:room-ktx:$roomVersion"
+
+    //Preferences DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //Nav Args
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+
 
 }
 
