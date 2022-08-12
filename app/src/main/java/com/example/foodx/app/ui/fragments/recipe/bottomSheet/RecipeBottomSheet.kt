@@ -42,6 +42,7 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
         // Inflate the layout for this fragment
         _binding = FragmentRecipeBottomSheetBinding.inflate(layoutInflater)
 
+        //Read stored values for {meal} and {diet} type for data store
         recipesViewModel.readMealAndDietType.asLiveData()
             .observe(viewLifecycleOwner, Observer { value ->
                 mealTypeChip = value.selectedMealType
@@ -51,22 +52,27 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
                 updateChip(value.selectedDietTypeId, binding.layoutDietType.dietTypeChipGroup)
             })
 
+        //On checking a new chip in meal type
         binding.layoutMealType.mealTypeChipGroup.setOnCheckedChangeListener { group, selectedChipId ->
             val chip = group.findViewById<Chip>(selectedChipId)
             val selectedMealType = chip.text.toString().lowercase()
 
+            //Selected meal name and Id will be set to global variable
             mealTypeChip = selectedMealType
             mealTypeChipId = selectedChipId
         }
 
+        //On checking a new chip in diet type
         binding.layoutDietType.dietTypeChipGroup.setOnCheckedChangeListener { group, selectedChipId ->
             val chip = group.findViewById<Chip>(selectedChipId)
             val selectedDietType = chip.text.toString().lowercase()
 
+            //Selected diet name and Id will be set to global variable
             dietTypeChip = selectedDietType
             dietTypeChipId = selectedChipId
         }
 
+        //Save {meal} and {diet} type to data store on pressing apply button
         binding.btnApply.setOnClickListener {
             recipesViewModel.saveMealAndDietType(
                 mealTypeChip,
@@ -78,6 +84,10 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    /**
+     * After making any new changes in the chip group selection we update the chip
+     * The initial value of {chipId = 0} when we first run the application.
+     */
     private fun updateChip(chipId: Int, chipGroup: ChipGroup) {
         if (chipId != 0) {
             try {

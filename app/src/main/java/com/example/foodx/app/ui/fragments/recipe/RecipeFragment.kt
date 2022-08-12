@@ -104,6 +104,7 @@ class RecipeFragment : Fragment() {
     private fun requestApiData() {
         Timber.d("Request New Data From API")
         viewModel.getRecipes(recipesViewModel.applyQueries())
+        Timber.d("${recipesViewModel.applyQueries()}")
 
         viewModel.recipeResponse.observe(viewLifecycleOwner, Observer { results ->
             when (results) {

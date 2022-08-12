@@ -21,12 +21,8 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
-
-private val Context.dataStore by preferencesDataStore(name = PREFERENCES_NAME)
-
 @ActivityRetainedScoped
-class DataStoreRepository @Inject constructor(@ApplicationContext context: Context) {
-
+class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object PreferenceKeys {
         val selectedMealType = stringPreferencesKey(PREFERENCES_MEAL_TYPE)
@@ -35,6 +31,9 @@ class DataStoreRepository @Inject constructor(@ApplicationContext context: Conte
         val selectedDietTypeId = intPreferencesKey(PREFERENCES_DIET_TYPE_ID)
 
     }
+
+    private val Context.dataStore by preferencesDataStore(name = PREFERENCES_NAME)
+
 
     suspend fun saveMealAndDietType(
         mealType: String,
@@ -71,14 +70,11 @@ class DataStoreRepository @Inject constructor(@ApplicationContext context: Conte
                 selectedDietTypeId
             )
         }
-
+}
 
     data class MealAndDietType(
         val selectedMealType: String,
         val selectedMealTypeId: Int,
         val selectedDietType: String,
         val selectedDietTypeId: Int
-    ) {
-
-    }
-}
+    )
