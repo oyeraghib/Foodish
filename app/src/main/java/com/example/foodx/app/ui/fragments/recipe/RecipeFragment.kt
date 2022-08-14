@@ -71,6 +71,8 @@ class RecipeFragment : Fragment() {
             networkListener.checkNetworkAvailability(requireContext())
                 .collect { status ->
                     Timber.d("$status")
+                    recipesViewModel.networkStatus = status
+                    recipesViewModel.getNetworkStatus()
                 }
         }
 
@@ -81,8 +83,12 @@ class RecipeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fabAddRecipe.setOnClickListener {
-            Navigation.findNavController(requireView())
-                .navigate(R.id.actionRecipeFragmentToRecipeBottomSheet)
+            if (recipesViewModel.networkStatus) {
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.actionRecipeFragmentToRecipeBottomSheet)
+            } else {
+                recipesViewModel.getNetworkStatus()
+            }
         }
     }
 
