@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foodx.R
 import com.example.foodx.api.utils.NetworkResults
 import com.example.foodx.app.adapters.FoodRecipeAdapter
+import com.example.foodx.app.utils.NetworkListener
 import com.example.foodx.app.utils.observeOnce
 import com.example.foodx.app.viewmodels.MainViewModel
 import com.example.foodx.app.viewmodels.RecipesViewModel
@@ -41,6 +42,9 @@ class RecipeFragment : Fragment() {
     // Adapter instance
     private val adapter by lazy { FoodRecipeAdapter() }
 
+    //Network Listener instance
+    private lateinit var networkListener: NetworkListener
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,6 +63,16 @@ class RecipeFragment : Fragment() {
 
         //Read Recipes from Database
         loadFoodRecipes()
+
+        //Kotlin coroutines {lifecycle} scope is required because collect is a suspend function
+        lifecycleScope.launch {
+            //initialising network listener
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { status ->
+                    Timber.d("$status")
+                }
+        }
 
         return binding.root
     }
