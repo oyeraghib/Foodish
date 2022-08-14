@@ -61,8 +61,9 @@ class RecipeFragment : Fragment() {
         //Starts the recycler View
         setUpRecyclerView()
 
-        //Read Recipes from Database
-        loadFoodRecipes()
+        recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
+            recipesViewModel.saveBackOnline(it)
+        }
 
         //Kotlin coroutines {lifecycle} scope is required because collect is a suspend function
         lifecycleScope.launch {
@@ -73,6 +74,9 @@ class RecipeFragment : Fragment() {
                     Timber.d("$status")
                     recipesViewModel.networkStatus = status
                     recipesViewModel.getNetworkStatus()
+
+                    //Read Recipes from Database
+                    loadFoodRecipes()
                 }
         }
 

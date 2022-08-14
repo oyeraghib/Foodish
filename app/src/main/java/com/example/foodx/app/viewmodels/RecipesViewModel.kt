@@ -1,7 +1,9 @@
 package com.example.foodx.app.viewmodels
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.foodx.api.utils.Constants.Companion.API_KEY
 import com.example.foodx.app.data.DataStoreRepository
@@ -30,8 +32,16 @@ class RecipesViewModel @Inject constructor(
     private var mealType: String = DEFAULT_MEAL_TYPE
     private var dietType: String = DEFAULT_DIET_TYPE
 
+    //Check network status
+    var networkStatus: Boolean = false
+
+    var backOnline = false
+
     //variable for reading meal and diet type from data store
     val readMealAndDietType = dataStoreRepository.readMealAndDietType
+
+    //Getting information of if Internet is back
+    val readBackOnline = dataStoreRepository.readBackOnline.asLiveData()
 
     /* TODO: Find a better approach to provide context as it may lead to memory leaks */
 
@@ -52,6 +62,13 @@ class RecipesViewModel @Inject constructor(
             )
         }
 
+    //Saving back online (when internet is back)
+    fun saveBackOnline(backOnline: Boolean) {
+        viewModelScope.launch {
+            dataStoreRepository.saveBackOnline(backOnline)
+        }
+    }
+
     fun applyQueries(): HashMap<String, String> {
         val queries: HashMap<String, String> = HashMap()
 
@@ -71,5 +88,18 @@ class RecipesViewModel @Inject constructor(
         queries[QUERY_FILL_INGREDIENTS] = "true"
 
         return queries
+    }
+
+    fun getNetworkStatus() {
+        if(!networkStatus) {
+            Toast.makeText(context, "No Internet Connection", Toast.LENGTH_SHORT).show()
+            saveBackOnline(true)
+        } else if(networkStatus) {
+            if(backOnline) {
+                Toast.makeText(context, "We are back again", Toast.LENGTH_SHORT).show()
+                saveBackOnline(false)
+            }
+        }
+
     }
 }
