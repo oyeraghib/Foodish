@@ -17,5 +17,5 @@ dependencyResolutionManagement {
 
     }
 }
-rootProject.name = "FoodX"
+rootProject.name = "Foodish"
 include ':app'

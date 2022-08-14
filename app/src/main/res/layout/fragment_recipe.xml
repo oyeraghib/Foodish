@@ -6,7 +6,7 @@
   <data>
     <variable
         name="mainViewModel"
-        type="com.example.foodx.app.viewmodels.MainViewModel"
+        type="com.example.foodish.app.viewmodels.MainViewModel"
         />
 
   </data>

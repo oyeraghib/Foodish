@@ -10,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.foodx"
+        applicationId "com.example.foodish"
         minSdk 24
         targetSdk 32
         versionCode 1

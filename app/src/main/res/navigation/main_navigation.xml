@@ -7,7 +7,7 @@
 
   <fragment
       android:id="@+id/recipeFragment"
-      android:name="com.example.foodx.app.ui.fragments.recipe.RecipeFragment"
+      android:name="com.example.foodish.app.ui.fragments.recipe.RecipeFragment"
       android:label="Recipe"
       tools:layout="@layout/fragment_recipe" >
     <action
@@ -20,12 +20,12 @@
   </fragment>
   <fragment
       android:id="@+id/favoriteFragment"
-      android:name="com.example.foodx.app.ui.fragments.favorite.FavoriteFragment"
+      android:name="com.example.foodish.app.ui.fragments.favorite.FavoriteFragment"
       android:label="Favorite"
       tools:layout="@layout/fragment_favorite" />
   <fragment
       android:id="@+id/jokeFragment"
-      android:name="com.example.foodx.app.ui.fragments.joke.JokeFragment"
+      android:name="com.example.foodish.app.ui.fragments.joke.JokeFragment"
       android:label="Joke"
       tools:layout="@layout/fragment_joke" />
   <dialog

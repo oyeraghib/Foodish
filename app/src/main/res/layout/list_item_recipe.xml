@@ -6,7 +6,7 @@
   <data>
         <variable
             name="result"
-            type="com.example.foodx.api.models.data.Result"
+            type="com.example.foodish.api.models.data.Result"
             />
   </data>
   <androidx.constraintlayout.widget.ConstraintLayout
