@@ -39,7 +39,7 @@ class MainViewModel @Inject constructor(
         getRecipesSafeCallQueries(queries)
     }
 
-    fun searchRecipes(searchQuery: Map<String, String>) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchRecipes(searchQuery: Map<String, String>) = viewModelScope.launch(Dispatchers.Main) {
         searchRecipesSafeCall(searchQuery)
     }
 
