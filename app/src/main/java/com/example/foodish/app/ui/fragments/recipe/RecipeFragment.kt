@@ -1,10 +1,11 @@
 package com.example.foodish.app.ui.fragments.recipe
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -94,6 +95,31 @@ class RecipeFragment : Fragment() {
                 recipesViewModel.getNetworkStatus()
             }
         }
+        //Menu for searching
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider, SearchView.OnQueryTextListener {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.recipes_menu, menu)
+
+                val search = menu.findItem(R.id.searchRecipe)
+//                val searchView = search.actionView as SearchView
+//                searchView.isSubmitButtonEnabled = true
+//                searchView.setOnQueryTextListener(this)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+        })
     }
 
     private fun setUpRecyclerView() {
@@ -101,7 +127,6 @@ class RecipeFragment : Fragment() {
         binding.rvRecipe.showShimmer()
         binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext())
     }
-
 
     private fun loadFoodRecipes() {
         lifecycleScope.launch {
