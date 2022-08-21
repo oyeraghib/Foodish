@@ -2,8 +2,8 @@ package com.example.foodish.app.ui.fragments.recipe
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -103,16 +103,19 @@ class RecipeFragment : Fragment() {
                 menuInflater.inflate(R.menu.recipes_menu, menu)
 
                 val search = menu.findItem(R.id.searchRecipe)
-//                val searchView = search.actionView as SearchView
-//                searchView.isSubmitButtonEnabled = true
-//                searchView.setOnQueryTextListener(this)
+                val searchView = search.actionView as SearchView
+                searchView.isSubmitButtonEnabled = true
+                searchView.setOnQueryTextListener(this)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return true
             }
 
-            override fun onQueryTextSubmit(p0: String?): Boolean {
+            override fun onQueryTextSubmit(queryForSearch: String?): Boolean {
+                if (queryForSearch != null) {
+                    searchAPIData(queryForSearch)
+                }
                 return true
             }
 
@@ -180,6 +183,36 @@ class RecipeFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun searchAPIData(searchQuery: String) {
+        showShimmer()
+        viewModel.searchRecipes(recipesViewModel.applySearchQueries(searchQuery))
+        viewModel.searchedRecipeResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResults.Success -> {
+                    hideShimmer()
+                    val foodRecipe = response.data
+                    foodRecipe.let {
+                        adapter.setData(it!!)
+                    }
+                }
+
+                is NetworkResults.Error -> {
+                    hideShimmer()
+                    readFromCache()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is NetworkResults.Loading -> {
+                    showShimmer()
+                }
+            }
+        }
     }
 
     private fun setAdapter() {
