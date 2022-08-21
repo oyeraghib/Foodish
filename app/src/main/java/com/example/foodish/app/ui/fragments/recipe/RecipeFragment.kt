@@ -1,10 +1,11 @@
 package com.example.foodish.app.ui.fragments.recipe
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -94,6 +95,34 @@ class RecipeFragment : Fragment() {
                 recipesViewModel.getNetworkStatus()
             }
         }
+        //Menu for searching
+        val menuHost: MenuHost = requireActivity()
+
+        menuHost.addMenuProvider(object : MenuProvider, SearchView.OnQueryTextListener {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.recipes_menu, menu)
+
+                val search = menu.findItem(R.id.searchRecipe)
+                val searchView = search.actionView as SearchView
+                searchView.isSubmitButtonEnabled = true
+                searchView.setOnQueryTextListener(this)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return true
+            }
+
+            override fun onQueryTextSubmit(queryForSearch: String?): Boolean {
+                if (queryForSearch != null) {
+                    searchAPIData(queryForSearch)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                return true
+            }
+        })
     }
 
     private fun setUpRecyclerView() {
@@ -101,7 +130,6 @@ class RecipeFragment : Fragment() {
         binding.rvRecipe.showShimmer()
         binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext())
     }
-
 
     private fun loadFoodRecipes() {
         lifecycleScope.launch {
@@ -155,6 +183,36 @@ class RecipeFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun searchAPIData(searchQuery: String) {
+        showShimmer()
+        viewModel.searchRecipes(recipesViewModel.applySearchQueries(searchQuery))
+        viewModel.searchedRecipeResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResults.Success -> {
+                    hideShimmer()
+                    val foodRecipe = response.data
+                    foodRecipe.let {
+                        adapter.setData(it!!)
+                    }
+                }
+
+                is NetworkResults.Error -> {
+                    hideShimmer()
+                    readFromCache()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is NetworkResults.Loading -> {
+                    showShimmer()
+                }
+            }
+        }
     }
 
     private fun setAdapter() {
