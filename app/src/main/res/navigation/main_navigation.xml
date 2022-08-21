@@ -30,7 +30,7 @@
       tools:layout="@layout/fragment_joke" />
   <dialog
       android:id="@+id/recipeBottomSheet"
-      android:name="com.example.foodx.app.ui.fragments.recipe.bottomSheet.RecipeBottomSheet"
+      android:name="com.example.foodish.app.ui.fragments.recipe.bottomSheet.RecipeBottomSheet"
       android:label="fragment_recipe_bottom_sheet"
       tools:layout="@layout/fragment_recipe_bottom_sheet" >
     <action

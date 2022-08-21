@@ -82,7 +82,7 @@ class RecipeBottomSheet : BottomSheetDialogFragment() {
                 dietTypeChipId
             )
 
-            val action =  RecipeBottomSheetDirections.actionRecipeBottomSheetToRecipeFragment()
+            val action = RecipeBottomSheetDirections.actionRecipeBottomSheetToRecipeFragment()
             action.backFromBottomSheet = true
             Timber.d("${action.backFromBottomSheet}")
             findNavController().navigate(action)
