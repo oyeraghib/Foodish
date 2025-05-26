@@ -127,7 +127,7 @@ class RecipeFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         setAdapter()
-        binding.rvRecipe.showShimmer()
+//        binding.rvRecipe.showShimmer()
         binding.rvRecipe.layoutManager = LinearLayoutManager(requireContext())
     }
 
@@ -220,11 +220,11 @@ class RecipeFragment : Fragment() {
     }
 
     private fun showShimmer() {
-        binding.rvRecipe.showShimmer()
+//        binding.rvRecipe.showShimmer()
     }
 
     private fun hideShimmer() {
-        binding.rvRecipe.hideShimmer()
+//        binding.rvRecipe.hideShimmer()
     }
 
     override fun onDestroyView() {
